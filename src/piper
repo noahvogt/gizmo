@@ -1,1 +1,0 @@
-sed 's/,/\n/; s/4/quarter/'
