@@ -1,29 +1,27 @@
 #!/usr/bin/env python3
 
+# music21 settings
+from music21 import *
+from matplotlib import *
+environment.set('musicxmlPath', '/usr/bin/musescore')
+
 # read from standard input
 import sys
 stdin_list = []
 for line in sys.stdin:
     stdin_list.append(line.rstrip())
 
-# function to replace a substring of a 'part' from each line of the 'gizmo notation'
-def replace_substring_of_list_part(input_list, split_index, pattern, replace_str):
-    
-    # create a temporary list with the selected 'part'
-    working_list = []
-    for sub in input_list:
-        working_list.append((sub.split(",")[split_index]))
-    
-    # replace the patterns in the temporary list with the replacement strings
-    working_list = [sub.replace(pattern, replace_str) for sub in working_list]
+# import needed gizmo funtions
+from gizmo_funtions import return_part
 
-    # replace the new 'part' segment in each line 
-    output_list = []
-    seperator_string = ","
-    for i in range(len(input_list)):
-        loop_list = input_list[i].split(",")
-        loop_list[split_index] = working_list[i]
-        output_list.append(seperator_string.join(loop_list))
-    return output_list
+# create stream
+stream1 = stream.Stream()
+for i in range(len(stdin_list)):
+    current_note = (return_part(stdin_list,1)[i])
+    current_duration = float((return_part(stdin_list,0)[i]))
+    exec("note%s=note.Note('%s')" % (str(i),current_note))
+    exec("note%s.duration.quarterLength = (%s)" % (str(i),current_duration))
+    exec("stream1.append(note%s)" % (str(i)))
 
-print(replace_substring_of_list_part(stdin_list, 0, '4', 'quarter'))
+# open stream in predefinded environment
+stream1.show()
