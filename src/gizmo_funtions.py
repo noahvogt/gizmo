@@ -26,3 +26,8 @@ def replace_substring_of_list_part(input_list, split_index, pattern, replace_str
         loop_list[split_index] = working_list[i]
         output_list.append(seperator_string.join(loop_list))
     input_list[:] = output_list
+
+# function to write to standard output in the 'gizmo notation'
+def gizmo_stdout(input_list):
+    for item in input_list:
+        print(item)
