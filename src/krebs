@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+
+# read from standard input
+import sys
+stdin_list = []
+for line in sys.stdin:
+    stdin_list.append(line.rstrip())
+
+# import needed gizmo funtions
+from gizmo_funtions import *
+
+stdin_list.reverse()
+def gizmo_stdout(input_list):
+    for item in input_list:
+        print(item)
+gizmo_stdout(stdin_list)
