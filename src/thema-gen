@@ -7,30 +7,64 @@ from gizmo_transforming_functions import *
 # read from standard input
 stdin_list = stdin()
 
-output_list2 = verkleinerung(stdin_list)
-#output_list = sequenz(stdin_list, 1)
-
-"""
-now this should be an algorithm that takes in a number and multiply
-the motive by it. Then it randomly runs all this this copied motives
-trough a function.
-"""
-
+# import needed packages
+import sys
 import random
-number = 4
+
+"""
+Now this should be an algorithm that takes in a number from the command
+line and multiplies the motive by it. Then it randomly runs all this these
+copied motives trough a function to create a 'thema'.
+"""
+
+# get command line argument
+try:
+    number = int(sys.argv[1])
+    # raise error if number too small
+    if number < 1:
+        raise ValueError("Number was too small (below 1)")
+except (IndexError, ValueError):
+    # set fallback value if no or wrong arguments given
+    number = 4 
+
+#output_list = sequenz(stdin_list, 1)
+output_list2 = verkleinerung(stdin_list)
 
 # create lists
 for i in range(number):
     exec("list%s = []" % (str(i)))
 
 # list of indexes from the motive list without repetition
-l = random.sample(range(0,number), number)
+index_list = random.sample(range(0,number), number)
 
-# now run each item through a list, TODO: is HARDCODED right now
-exec("list%s = verkleinerung(output_list2)" % (str(l[0])))
-exec("list%s = krebs(output_list2)" % (str(l[1])))
-exec("list%s = vergrösserung(output_list2)" % (str(l[2])))
-exec("list%s = output_list2" % (str(l[3])))
+# list of functions to use
+function_list = [\
+    "verkleinerung(output_list2)",\
+    "krebs(output_list2)",\
+    "vergrösserung(output_list2)",\
+    "output_list2"\
+    ]
+
+# adjust function_list to the entered number
+if number < len(function_list):
+    # if smaller, simply cut/strip it
+    function_list = function_list[:number]
+elif number > len(function_list):
+    for i in range(number-len(function_list)):
+        function_list.append(random.choice(function_list))
+
+# randomize the list
+random.shuffle(function_list)
+
+# OPTIONAL: add some post procession here
+
+# DEBUG:
+#print(len(function_list))
+#print(function_list)
+
+# now run each item through a list
+for i in range(number):
+    exec("list%s = %s" % (str(i),str(function_list[i])))
 
 # append lists
 final_list = []
