@@ -1,0 +1,41 @@
+#!/usr/bin/env python3
+
+# import needed gizmo funtions
+from gizmo_funtions import *
+from gizmo_transforming_functions import *
+
+# read from standard input
+stdin_list = stdin()
+
+output_list2 = verkleinerung(stdin_list)
+#output_list = sequenz(stdin_list, 1)
+
+"""
+now this should be an algorithm that takes in a number and multiply
+the motive by it. Then it randomly runs all this this copied motives
+trough a function.
+"""
+
+import random
+number = 4
+
+# create lists
+for i in range(number):
+    exec("list%s = []" % (str(i)))
+
+# list of indexes from the motive list without repetition
+l = random.sample(range(0,number), number)
+
+# now run each item through a list, TODO: is HARDCODED right now
+exec("list%s = verkleinerung(output_list2)" % (str(l[0])))
+exec("list%s = krebs(output_list2)" % (str(l[1])))
+exec("list%s = vergrösserung(output_list2)" % (str(l[2])))
+exec("list%s = output_list2" % (str(l[3])))
+
+# append lists
+final_list = []
+for i in range(number):
+    exec("final_list.extend(list%s)" % (str(i)))
+
+# write to stdout
+gizmo_stdout(final_list)

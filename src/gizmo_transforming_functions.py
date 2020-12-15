@@ -1,4 +1,3 @@
-
 """ helper functions """
 
 # converts float duration to string in the form x.xx
@@ -27,6 +26,7 @@ def convert_multiple_key_signetures(note):
             note = note[:5] + note[7:]
     return note
 
+# TODO: add description
 def interval(note_1, note_2):
     notes_list = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
     octave = int(note_2[-1:]) - int(note_1[-1:])
@@ -44,7 +44,7 @@ def interval(note_1, note_2):
 def tempo(input_list, temp):
     working_list = []
     for note in input_list:
-        duration = float (note[0:4]) * temp
+        duration = float (note[0:4]) * float(temp)
         note = duration_to_string(duration) + note[4:]
         working_list.append(note)
     return working_list
@@ -86,6 +86,7 @@ def highes_note(note, value):
     return note
 
 # returns a part higher by some value
+# TODO: not dynamically working as intended
 def sequenz(input_list, value):
     working_list = []
     for n in input_list:
@@ -94,6 +95,7 @@ def sequenz(input_list, value):
     return working_list
 
 # mirrors notes at the first note
+# TODO: not dynamically working as intended
 def mirror(input_list):
     working_list = []
     mirror = input_list[0]
@@ -102,3 +104,7 @@ def mirror(input_list):
         print (tmp_note)
         working_list.append(tmp_note)
     return working_list
+
+# reverses list of notes (krebs)
+def krebs(input_list):
+    return input_list[::-1]

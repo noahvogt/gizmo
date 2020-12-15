@@ -31,3 +31,11 @@ def replace_substring_of_list_part(input_list, split_index, pattern, replace_str
 def gizmo_stdout(input_list):
     for item in input_list:
         print(item)
+
+# function to read from standard input and return it a list of each line
+def stdin():
+    stdin_list = []
+    import sys
+    for line in sys.stdin:
+        stdin_list.append(line.rstrip())
+    return stdin_list

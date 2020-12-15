@@ -5,14 +5,11 @@ from music21 import *
 from matplotlib import *
 environment.set('musicxmlPath', '/usr/bin/musescore')
 
-# read from standard input
-import sys
-stdin_list = []
-for line in sys.stdin:
-    stdin_list.append(line.rstrip())
-
 # import needed gizmo funtions
-from gizmo_funtions import return_part
+from gizmo_funtions import return_part, stdin
+
+# read from standard input
+stdin_list = stdin()
 
 # create stream
 stream1 = stream.Stream()
