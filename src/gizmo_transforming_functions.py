@@ -1,4 +1,7 @@
 """ helper functions """
+# temporary notation fix
+def fix_temp(note):
+    return note[:4] + note[6:]
 
 # converts float duration to string in the form x.xx
 def duration_to_string(input_float_duration):
@@ -59,6 +62,7 @@ def vergrösserung(input_list):
 
     # return the note higher by a value (1 = half a step)
 def highes_note(note, value):
+    note = fix_temp(note)
     notes_list = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
     is_up = True
     if value < 0:
