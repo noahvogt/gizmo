@@ -4,7 +4,7 @@
 *Note:* This program uses the [music21](https://github.com/cuthbertLab/music21) library.
 
 ## Dependencies
-You can install the only python module that is not in the default library using pip:
+First of all you need [python3](https://www.python.org/downloads/) including the standard librarys. Now install the only needed additional module using pip:
 
 	pip install music21
 
