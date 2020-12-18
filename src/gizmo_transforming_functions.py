@@ -1,5 +1,7 @@
+
 """ helper functions """
 # temporary notation fix
+
 def fix_temp(note):
     return note[:4] + note[6:]
 
@@ -29,7 +31,8 @@ def convert_multiple_key_signetures(note):
             note = note[:5] + note[7:]
     return note
 
-# TODO: add description
+# returns the pitch difference from two notes
+
 def interval(note_1, note_2):
     notes_list = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
     octave = int(note_2[-1:]) - int(note_1[-1:])
@@ -90,7 +93,6 @@ def highes_note(note, value):
     return note
 
 # returns a part higher by some value
-# TODO: not dynamically working as intended
 def sequenz(input_list, value):
     working_list = []
     for n in input_list:
@@ -99,16 +101,15 @@ def sequenz(input_list, value):
     return working_list
 
 # mirrors notes at the first note
-# TODO: not dynamically working as intended
 def mirror(input_list):
     working_list = []
     mirror = input_list[0]
     for note in input_list:
         tmp_note = highes_note(mirror, - interval(mirror, note))
-        print (tmp_note)
         working_list.append(tmp_note)
     return working_list
 
 # reverses list of notes (krebs)
 def krebs(input_list):
     return input_list[::-1]
+    
