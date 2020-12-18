@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>gizmo documentation</title>
+<style>
+body {
+	padding-top: 100px;
+	padding-bottom: 10px;
+	max-width: 800px;
+	margin: auto;
+}
+
+.over {
+	border: 1px solid black;
+	padding: 20px;
+	border-radius: 5px;	
+	background: white;
+	margin-bottom: 50px;
+}
+
+div {
+	padding: 1px;
+	padding-left: 10px;
+	background: lightgrey;
+}
+</style>
+</head>
+<body>
+<div class="over"><h1>gizmo</h1>
+
+<p><strong>gizmo</strong> is a simple toolbox to create some simple melodies using python. The beauty about is, that you only need <em>a single motive</em> to create a little song.</p>
+
+<p><em>Note:</em> This program uses the <a href="https://github.com/cuthbertLab/music21">music21</a> library.</p>
+
+<h2>Dependencies</h2>
+
+<p>You can install the only python module that is not in the default library using pip:</p>
+
+<div><pre><code>pip install music21
+</code></pre></div>
+
+<h2>the &lsquo;gizmo notation&rsquo;</h2>
+
+<p>For a simple toolkit you need a simple notation that abides to the unix philsphoy. So we made a now one that consists simply of <em>lines in a plain text file</em>.</p>
+
+<p>Every line contains the information about <em>one note</em>. Seperated by apostrophes there are different attributes specified for each note. Every attribute seperated like this is called a <strong>&lsquo;part&rsquo;</strong>:</p>
+
+<ul>
+<li>The first part is a four characters long float that contains the <em>length</em> of the note in quarters.</li>
+<li>The second part is two to three chars long. The fist character is the Note value (capitalized) and the second one the octave (as a integer). The third char is optional and just the key signature in the form of either &ldquo;#&rdquo; or &ldquo;-&rdquo;.</li>
+</ul>
+
+
+<p>Here an example in the <em>gizmo notation</em>:</p>
+
+<div><pre><code>1.00,G4
+1.00,E4
+0.50,D4
+1.00,C#4
+</code></pre></div>
+
+<p>Now the same example in <em>sheet music</em>:</p>
+
+<p><img src="../media/readme-example.png" alt="" /></p>
+
+<h2>Rendering</h2>
+
+<p>After you fully processed your music in the gizmo notation you can run it through the script called <em>final-converter</em> to export your work as a <strong>.musicXML</strong> file. This file can be viewed and further edited/processed in other free software like <a href="https://github.com/musescore/MuseScore">MuseScore</a>.</p></div>
+</body>
+<hr>
+<center>
+	follow this project on 
+	<a href=https://github.com/noahvogt/gizmo>github</a>
+</center>
+</html>
