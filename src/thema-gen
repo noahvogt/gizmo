@@ -28,7 +28,8 @@ except (IndexError, ValueError):
     number = 4 
 
 #output_list = sequenz(stdin_list, 1)
-output_list2 = verkleinerung(stdin_list)
+motiv_list = verkleinerung(stdin_list)
+#motiv_list = stdin_list
 
 # create lists
 for i in range(number):
@@ -38,38 +39,68 @@ for i in range(number):
 index_list = random.sample(range(0,number), number)
 
 # list of functions to use
-function_list = [\
-    "verkleinerung(output_list2)",\
-    "krebs(output_list2)",\
-    "vergrösserung(output_list2)",\
-    "output_list2"\
+function_list = [
+    "verkleinerung(motiv_list)",
+    "krebs(motiv_list)",
+    "vergrösserung(motiv_list)",
+    "motiv_list",
+    "sequenz(motiv_list, 5)"
     ]
 
-# adjust function_list to the entered number
-if number < len(function_list):
-    # if smaller, simply cut/strip it
-    function_list = function_list[:number]
-elif number > len(function_list):
-    for i in range(number-len(function_list)):
-        function_list.append(random.choice(function_list))
+def first_equals_last_pitch(input_list):
+    is_same_pitch = not(bool(interval(fix_temp(input_list[0]), fix_temp(input_list[-1]))))
+    return is_same_pitch
 
-# randomize the list
-random.shuffle(function_list)
+"""copy over function_list and start main loop that stops when every post
+processing requirement is satified"""
 
-# OPTIONAL: add some post procession here
+# default values are all all generating 'False' to simulate a 'do while' loop
+final_list = ['1.00,D4','1.00,C3']
 
-# DEBUG:
-#print(len(function_list))
-#print(function_list)
+while not(first_equals_last_pitch(final_list)):
+    working_list = function_list
+    
+    # adjust working_list to the entered number
+    if number < len(working_list):
+        # if smaller, simply randomize + cut/strip it
+        random.shuffle(working_list)
+        working_list = working_list[:number]
+    elif number > len(working_list):
+        for i in range(number-len(working_list)):
+            working_list.append(random.choice(working_list))
+    
+    # randomize the list
+    random.shuffle(working_list)
+    
+    # OPTIONAL: add some post procession here
+    
+    # now run each item through a list
+    for i in range(number):
+        exec("list%s = %s" % (str(i),str(working_list[i])))
+    
+    # append lists
+    final_list = []
+    for i in range(number):
+        exec("final_list.extend(list%s)" % (str(i)))
+    
+    """
+    DEBUG:
 
-# now run each item through a list
-for i in range(number):
-    exec("list%s = %s" % (str(i),str(function_list[i])))
+    print(len(working_list))
+    print(working_list)
 
-# append lists
-final_list = []
-for i in range(number):
-    exec("final_list.extend(list%s)" % (str(i)))
-
-# write to stdout
+    print(final_list)
+    print(len(motiv_list))
+    unzip_string = "item0"
+    for i in range(1, len(motiv_list)):
+        unzip_string += ", item%s" % (str(i))
+    print(unzip_string)
+    exec("for %s in zip(*[iter(final_list)]*%s): print(%s)" % (unzip_string, str(len(motiv_list)), unzip_string))
+    print(motiv_list)
+    
+    print(first_equals_last_pitch(final_list))
+    print(interval('1.00C4','1.00C4'))
+    """
+    
+# finally, write to standard output
 gizmo_stdout(final_list)

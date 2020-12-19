@@ -3,7 +3,7 @@
 # temporary notation fix
 
 def fix_temp(note):
-    return note[:4] + note[6:]
+    return note[:4] + note[5:]
 
 # converts float duration to string in the form x.xx
 def duration_to_string(input_float_duration):
@@ -97,7 +97,7 @@ def sequenz(input_list, value):
     working_list = []
     for n in input_list:
         note = highes_note(n, value)
-        working_list.append(note)
+        working_list.append(note[:4]+","+note[4:])
     return working_list
 
 # mirrors notes at the first note
