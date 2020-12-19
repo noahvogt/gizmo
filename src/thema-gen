@@ -35,14 +35,15 @@ for i in range(number):
     exec("list%s = []" % (str(i)))
 
 # list of indexes from the motive list without repetition
-index_list = random.sample(range(0,number), number)
+index_list = random.sample(range(0,number), number) 
 
 # list of functions to use
 function_list = [\
     "verkleinerung(output_list2)",\
     "krebs(output_list2)",\
     "vergrösserung(output_list2)",\
-    "output_list2"\
+    "output_list2",\
+    "sequenz(output_list2, 1)"\
     ]
 
 # adjust function_list to the entered number

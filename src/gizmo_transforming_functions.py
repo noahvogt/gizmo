@@ -65,17 +65,16 @@ def vergrösserung(input_list):
 
     # return the note higher by a value (1 = half a step)
 def highes_note(note, value):
-    note = fix_temp(note)
+    note = note.split(',')
     notes_list = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
     is_up = True
-    if value < 0:
+    if value < 0: # check if value is negative and store in is_up
         notes_list.reverse()
         value = -value
         is_up = False
-    tmp_note = note[:4]
-    pitch = note[4:5]
+    pitch = note[1][:1] # first char from 2nd list argument
     ord_number = notes_list.index(pitch)
-    octave = int(note[-1:])
+    octave = int(note[1][-1:])
     ord_number += value
     while ord_number >= 12:
         if is_up:
@@ -83,12 +82,12 @@ def highes_note(note, value):
         else:
             octave -= 1
         ord_number = ord_number - 12
-    if note[5:6] == '#':
-        note = tmp_note + notes_list[ord_number] + '#' + str(octave)
-    elif note[5:6] == '-':
-        note = tmp_note + notes_list[ord_number] + '-' + str(octave)
+    if note[1][1:2] == '#': # 2nd char from 2nd list argument
+        note = note[0] + notes_list[ord_number] + '#' + str(octave)
+    elif note[1][1:2] == '-':
+        note = note[0] + notes_list[ord_number] + '-' + str(octave)
     else:
-        note = tmp_note + notes_list[ord_number] + str(octave)
+        note = note[0] + notes_list[ord_number] + str(octave)
     note = convert_multiple_key_signetures(note)
     return note
 
@@ -112,4 +111,3 @@ def mirror(input_list):
 # reverses list of notes (krebs)
 def krebs(input_list):
     return input_list[::-1]
-    
