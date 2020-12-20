@@ -48,7 +48,7 @@ function_list = [
     ]
 
 def first_equals_last_pitch(input_list):
-    is_same_pitch = not(bool(interval(fix_temp(input_list[0]), fix_temp(input_list[-1]))))
+    is_same_pitch = not(bool(interval(input_list[0], input_list[-1])))
     return is_same_pitch
 
 """copy over function_list and start main loop that stops when every post
