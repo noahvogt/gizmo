@@ -25,7 +25,7 @@ try:
         raise ValueError("Number was too small (below 1)")
 except (IndexError, ValueError):
     # set fallback value if no or wrong arguments given
-    number = 4 
+    number = 4
 
 #output_list = sequenz(stdin_list, 1)
 motiv_list = verkleinerung(stdin_list)
@@ -44,7 +44,9 @@ function_list = [
     "krebs(motiv_list)",
     "vergrösserung(motiv_list)",
     "motiv_list",
-    "sequenz(motiv_list, 5)"
+    "sequenz(motiv_list, 5)",
+    "mirror_pitch(motiv_list)",
+    "mirror_rythm(motiv_list)"
     ]
 
 def first_equals_last_pitch(input_list):
