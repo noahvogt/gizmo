@@ -1,4 +1,5 @@
 from gizmo_transforming_functions import *
+from gizmo_funtions import gizmo_stdout
 
 import random
 
@@ -74,4 +75,4 @@ for i in range (1, len(motiv)):
     note = motiv[i].split(',')[1]
     motiv[i] = duration + ',' + note
 
-print(motiv)
+gizmo_stdout(motiv)
