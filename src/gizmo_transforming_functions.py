@@ -1,5 +1,4 @@
 
-
 """ helper functions """
 
 # converts float duration to string in the form x.xx

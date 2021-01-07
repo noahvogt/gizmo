@@ -14,7 +14,7 @@ def replace_substring_of_list_part(input_list, split_index, pattern, replace_str
     working_list = []
     for sub in input_list:
         working_list.append((sub.split(",")[split_index]))
-    
+
     # replace the patterns in the temporary list with the replacement strings
     working_list = [sub.replace(pattern, replace_str) for sub in working_list]
 
@@ -26,6 +26,23 @@ def replace_substring_of_list_part(input_list, split_index, pattern, replace_str
         loop_list[split_index] = working_list[i]
         output_list.append(seperator_string.join(loop_list))
     input_list[:] = output_list
+
+# return true if the given pitch is in correct gizmo notation
+notes_list = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+
+def check_pitch_gizmo_notation(pitch):
+    if pitch[0] not in notes_list:
+        return False
+    if len(pitch) == 2:
+        if pitch[1].isdigit():
+            return True
+        else:
+            return False
+    elif len(pitch) == 3:
+        if pitch[1] == '-' or pitch[1] == '#' and pitch[2].isdigit():
+            return True
+    else:
+        return False
 
 # function to write to standard output in the 'gizmo notation'
 def gizmo_stdout(input_list):

@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
 from gizmo_transforming_functions import *
-from gizmo_funtions import gizmo_stdout
+from gizmo_funtions import gizmo_stdout, check_pitch_gizmo_notation
 
+import sys
 import random
 
 notes_list = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
@@ -30,12 +31,41 @@ def compute_note_sequenz_int():
 def half_note_duration(note):
     return verkleinerung([note])[0]
 
+""" This should produce a motiv which can be used for further processing. There are three 
+command line arguments to change result first length in quarter notes, second velocity and for the 
+third it can be inputed a starting note"""
 
-""" This should produce a motiv which can be used for further processing. By now 
-the length is determined by motiv_length_in_notes later it should be decided by 
-randomness"""
+# these are default values, TODO: write it in order to change them as commandline arguments 
 
-motiv_length_in_quarter_notes = 4
+# get command line argument length
+try:
+    motiv_length_in_quarter_notes = int(sys.argv[1])
+    # raise error if number too small
+    if motiv_length_in_quarter_notes < 1:
+        raise ValueError("Number was too small (below 1)")
+except (IndexError, ValueError):
+    # set fallback value if no or wrong arguments given
+    motiv_length_in_quarter_notes = 4
+
+# get command line argument velocity
+try:
+    rythme_velocity = int(sys.argv[2])
+    # raise error if number too small
+    if rythme_velocity < 0 or rythme_velocity > 3:
+        raise ValueError("Number out of bounce (below 0 or over 2)")
+except (IndexError, ValueError):
+    # set fallback value if no or wrong arguments given
+    rythme_velocity = 2
+
+try:
+    first_note = str(sys.argv[3])
+    # raise error if not in correct gizmo notation
+    if not check_pitch_gizmo_notation(first_note):
+        raise ValueError("Not in correct gizmo notation")
+except (IndexError, ValueError):
+    # randomness will be applied later, set first_note to String
+    first_note = ''
+
 motiv = []
 
 # temporarly all notes have duration 1.00 or 2.00
@@ -48,7 +78,6 @@ while i < motiv_length_in_quarter_notes:
     else: 
         motiv.append('1.00,')
     i += 1
-
 
 # compute rythm
 def compute_rhytme_by_halfen(motiv):
@@ -63,11 +92,16 @@ def compute_rhytme_by_halfen(motiv):
         i += 1
     return new_motiv
 
-for i in range (2):
+for i in range (rythme_velocity):
     motiv = compute_rhytme_by_halfen(motiv)
 
 # choose first note
-motiv[0] = motiv[0] + random.choice(notes_list) + str(int(round(random.normalvariate(4, 0.5),0)))
+
+if len(first_note) == 0:
+    motiv[0] = motiv[0] + random.choice(notes_list) + str(int(round(random.normalvariate(4, 0.5),0)))
+else:
+    motiv[0] = motiv[0] + first_note
+    print("motiv:", motiv[0])
 
 # compute remaining notes
 for i in range (1, len(motiv)):

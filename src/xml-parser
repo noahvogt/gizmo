@@ -16,19 +16,19 @@ def how_many_alter_signs(value):
     return alter_sign
 
 
-# Reading the data inside the xml 
-# file to a variable under the name  
+# Reading the data inside the xml
+# file to a variable under the name
 # data from standard input
 import sys
 data = sys.stdin.read()
 
-# Passing the stored data inside 
-# the beautifulsoup parser, storing  
+# Passing the stored data inside
+# the beautifulsoup parser, storing
 # the returned object
 
-BS_data = BeautifulSoup(data, "xml") 
+BS_data = BeautifulSoup(data, "xml")
   
-# Finding all instances of tag  
+# Finding all instances of tag
 # 'notes'
 notes = BS_data.find_all('note')
 # reading notes and parse to 'gizmo notation'
@@ -38,8 +38,8 @@ for note in notes:
     duration = float(note.find('duration').text) / float(BS_data.find('divisions').text)
     duration = duration_to_string(duration)
     pitch = note.find('pitch')
-    if pitch == None: # TODO: cutting out pauses does not work yet
-        next
+    if pitch == None:
+        continue
     else:
         new_note = duration + ',' + note.find('step').text
         if note.find('alter') != None:
@@ -49,4 +49,4 @@ for note in notes:
     working_list.append(new_note)
 
 # print to standard output
-gizmo_stdout(working_list)   
+gizmo_stdout(working_list)
