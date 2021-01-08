@@ -45,7 +45,7 @@ try:
         raise ValueError("Number was too small (below 1)")
 except (IndexError, ValueError):
     # set fallback value if no or wrong arguments given
-    motiv_length_in_quarter_notes = 4
+    motiv_length_in_quarter_notes = random.randint(2,6)
 
 # get command line argument velocity
 try:
@@ -55,7 +55,7 @@ try:
         raise ValueError("Number out of bounce (below 0 or over 2)")
 except (IndexError, ValueError):
     # set fallback value if no or wrong arguments given
-    rythme_velocity = 2
+    rythme_velocity = random.randint(0,2)
 
 try:
     first_note = str(sys.argv[3])
@@ -101,7 +101,6 @@ if len(first_note) == 0:
     motiv[0] = motiv[0] + random.choice(notes_list) + str(int(round(random.normalvariate(4, 0.5),0)))
 else:
     motiv[0] = motiv[0] + first_note
-    print("motiv:", motiv[0])
 
 # compute remaining notes
 for i in range (1, len(motiv)):
