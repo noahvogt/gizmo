@@ -27,9 +27,9 @@ except (IndexError, ValueError):
     # set fallback value if no or wrong arguments given
     number = 4
 
-#output_list = sequenz(stdin_list, 1)
-motiv_list = verkleinerung(stdin_list)
-#motiv_list = stdin_list
+# output_list = sequenz(stdin_list, 1)
+# motiv_list = verkleinerung(stdin_list)
+motiv_list = stdin_list
 
 # create lists
 for i in range(number):
@@ -48,6 +48,10 @@ function_list = [
     "mirror_pitch(motiv_list)",
     "mirror_rythm(motiv_list)"
     ]
+
+# do not apply "verkleinerung" if the shortest note is 1/16
+if '0.25' in return_part(motiv_list, 0):
+    function_list.remove("verkleinerung(motiv_list)")
 
 def first_equals_last_pitch(input_list):
     is_same_pitch = not(bool(interval(input_list[0], input_list[-1])))
