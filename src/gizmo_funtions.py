@@ -9,7 +9,7 @@ def return_part(input_list, split_index):
 
 # function to replace a substring of a 'part' from each line of the 'gizmo notation'
 def replace_substring_of_list_part(input_list, split_index, pattern, replace_str):
-    
+
     # create a temporary list with the selected 'part'
     working_list = []
     for sub in input_list:
@@ -48,6 +48,13 @@ def check_pitch_gizmo_notation(pitch):
 def gizmo_stdout(input_list):
     for item in input_list:
         print(item)
+
+# function to write to a (new) file in the 'gizmo notation'
+def gizmo_write2file(input_list, path_to_file):
+    with open(path_to_file, "w+") as file_writer:
+        for item in input_list:
+            file_writer.write(item+"\n")
+        file_writer.close()
 
 # function to read from standard input and return it a list of each line
 def stdin():

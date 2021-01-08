@@ -12,8 +12,8 @@ notes_list = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
 def normal_int (mu):
     return int(round(random.normalvariate(mu, 3),0))
 
-"""return a random value by first deciding if it should be negativ or 
-positive and then using normal distribution with mu 2 or -2 respectivly. standart 
+"""return a random value by first deciding if it should be negativ or
+positive and then using normal distribution with mu 2 or -2 respectivly. standart
 deviation is always 3 and could be changed in normal_int"""
 
 def compute_note_sequenz_int():
@@ -31,8 +31,8 @@ def compute_note_sequenz_int():
 def half_note_duration(note):
     return verkleinerung([note])[0]
 
-""" This should produce a motiv which can be used for further processing. There are three 
-command line arguments to change result first length in quarter notes, second velocity and for the 
+""" This should produce a motiv which can be used for further processing. There are three
+command line arguments to change result first length in quarter notes, second velocity and for the
 third it can be inputed a starting note"""
 
 # these are default values, TODO: write it in order to change them as commandline arguments 
@@ -71,11 +71,11 @@ motiv = []
 # temporarly all notes have duration 1.00 or 2.00
 i = 0
 while i < motiv_length_in_quarter_notes:
-    if (i != motiv_length_in_quarter_notes - 1 and random.randint(0,3) == 1): 
+    if (i != motiv_length_in_quarter_notes - 1 and random.randint(0,3) == 1):
         # ~ 1/3 probability for 2.00
         motiv.append('2.00,')
         i += 1
-    else: 
+    else:
         motiv.append('1.00,')
     i += 1
 

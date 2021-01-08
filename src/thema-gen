@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 
 # import needed gizmo funtions
 from gizmo_funtions import *
@@ -65,7 +65,7 @@ final_list = ['1.00,D4','1.00,C3']
 
 while not(first_equals_last_pitch(final_list)):
     working_list = function_list
-    
+
     # adjust working_list to the entered number
     if number < len(working_list):
         # if smaller, simply randomize + cut/strip it
@@ -74,21 +74,21 @@ while not(first_equals_last_pitch(final_list)):
     elif number > len(working_list):
         for i in range(number-len(working_list)):
             working_list.append(random.choice(working_list))
-    
+
     # randomize the list
     random.shuffle(working_list)
-    
+
     # OPTIONAL: add some post procession here
-    
+
     # now run each item through a list
     for i in range(number):
         exec("list%s = %s" % (str(i),str(working_list[i])))
-    
+
     # append lists
     final_list = []
     for i in range(number):
         exec("final_list.extend(list%s)" % (str(i)))
-    
+
     """
     DEBUG:
 
@@ -103,10 +103,10 @@ while not(first_equals_last_pitch(final_list)):
     print(unzip_string)
     exec("for %s in zip(*[iter(final_list)]*%s): print(%s)" % (unzip_string, str(len(motiv_list)), unzip_string))
     print(motiv_list)
-    
+
     print(first_equals_last_pitch(final_list))
     print(interval('1.00C4','1.00C4'))
     """
-    
+
 # finally, write to standard output
 gizmo_stdout(final_list)
