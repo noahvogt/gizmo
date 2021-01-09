@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 # import needed gizmo funtions
 from gizmo_funtions import *
@@ -24,7 +24,7 @@ number = 4
 condition_list = [False]
 
 def first_equals_last_pitch(input_list):
-    is_same_pitch = not(bool(interval(fix_temp(input_list[0]), fix_temp(input_list[-1]))))
+    is_same_pitch = not(bool(interval(input_list[0], input_list[-1])))
     return is_same_pitch
 
 active_args = []
@@ -56,9 +56,8 @@ Options:\n\
      -h, --help\t\tprint this help message")
         exit()
 
-#output_list = sequenz(stdin_list, 1)
-motiv_list = verkleinerung(stdin_list)
-#motiv_list = stdin_list
+
+motiv_list = stdin_list
 
 # create lists
 for i in range(number):
@@ -73,9 +72,14 @@ function_list = [
     "krebs(motiv_list)",
     "vergrösserung(motiv_list)",
     "motiv_list",
-    "sequenz(motiv_list, 5)"
+    "sequenz(motiv_list, 5)",
+    "mirror_pitch(motiv_list)",
+    "mirror_rythm(motiv_list)"
     ]
 
+# do not apply "verkleinerung" if the shortest note is 1/16
+if '0.25' in return_part(motiv_list, 0):
+    function_list.remove("verkleinerung(motiv_list)")
 
 """copy over function_list and start main loop that stops when every post
 processing requirement is satified"""

@@ -3,7 +3,14 @@
 # music21 settings
 from music21 import *
 from matplotlib import *
-environment.set('musicxmlPath', '/usr/bin/musescore')
+import sys
+if sys.platform == 'linux':
+    environment.set('musicxmlPath', '/usr/bin/musescore')
+elif sys.platform == 'darwin':
+    environment.set('musicxmlPath', '/Applications/MuseScore 3.5.app/')
+else:
+    print("Error: Please Use a Unix-like Operating System or change the source code")
+    exit()
 
 # import needed gizmo funtions
 from gizmo_funtions import return_part, stdin

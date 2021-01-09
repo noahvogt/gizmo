@@ -1,0 +1,113 @@
+#!/usr/bin/env python3
+
+from gizmo_transforming_functions import *
+from gizmo_funtions import gizmo_stdout, check_pitch_gizmo_notation
+
+import sys
+import random
+
+notes_list = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+
+# returns a random int from the gauss curve with with standart deviation 3 and given mu
+def normal_int (mu):
+    return int(round(random.normalvariate(mu, 3),0))
+
+"""return a random value by first deciding if it should be negativ or
+positive and then using normal distribution with mu 2 or -2 respectivly. standart
+deviation is always 3 and could be changed in normal_int"""
+
+def compute_note_sequenz_int():
+    pm = random.randint(0,1)
+    next_note = normal_int(2)
+    if pm == 1:
+        while next_note > 0:
+            next_note = normal_int(2)
+    else:
+        while next_note <= 0:
+            next_note = normal_int(-2)
+    return next_note
+
+# this function return a note with half the length of the inputed note
+def half_note_duration(note):
+    return verkleinerung([note])[0]
+
+""" This should produce a motiv which can be used for further processing. There are three
+command line arguments to change result first length in quarter notes, second velocity and for the
+third it can be inputed a starting note"""
+
+# these are default values, TODO: write it in order to change them as commandline arguments 
+
+# get command line argument length
+try:
+    motiv_length_in_quarter_notes = int(sys.argv[1])
+    # raise error if number too small
+    if motiv_length_in_quarter_notes < 1:
+        raise ValueError("Number was too small (below 1)")
+except (IndexError, ValueError):
+    # set fallback value if no or wrong arguments given
+    motiv_length_in_quarter_notes = random.randint(2,6)
+
+# get command line argument velocity
+try:
+    rythme_velocity = int(sys.argv[2])
+    # raise error if number too small
+    if rythme_velocity < 0 or rythme_velocity > 3:
+        raise ValueError("Number out of bounce (below 0 or over 2)")
+except (IndexError, ValueError):
+    # set fallback value if no or wrong arguments given
+    rythme_velocity = random.randint(0,2)
+
+try:
+    first_note = str(sys.argv[3])
+    # raise error if not in correct gizmo notation
+    if not check_pitch_gizmo_notation(first_note):
+        raise ValueError("Not in correct gizmo notation")
+except (IndexError, ValueError):
+    # randomness will be applied later, set first_note to String
+    first_note = ''
+
+motiv = []
+
+# temporarly all notes have duration 1.00 or 2.00
+i = 0
+while i < motiv_length_in_quarter_notes:
+    if (i != motiv_length_in_quarter_notes - 1 and random.randint(0,3) == 1):
+        # ~ 1/3 probability for 2.00
+        motiv.append('2.00,')
+        i += 1
+    else:
+        motiv.append('1.00,')
+    i += 1
+
+# compute rythm
+def compute_rhytme_by_halfen(motiv):
+    i = 0
+    new_motiv = motiv[:]
+    while i < len(new_motiv):
+        if random.randint(0,1) == 1:
+            note = half_note_duration(new_motiv[i])
+            new_motiv[i] = note
+            new_motiv.insert(i, note)
+            i += 1
+        i += 1
+    return new_motiv
+
+for i in range (rythme_velocity):
+    motiv = compute_rhytme_by_halfen(motiv)
+
+# choose first note
+
+if len(first_note) == 0:
+    motiv[0] = motiv[0] + random.choice(notes_list) + str(int(round(random.normalvariate(4, 0.5),0)))
+else:
+    motiv[0] = motiv[0] + first_note
+
+# compute remaining notes
+for i in range (1, len(motiv)):
+    next_note = int(round(random.normalvariate(0,2),0))
+    duration = motiv[i].split(',')[0]
+    motiv[i] = highes_note(motiv[i - 1], compute_note_sequenz_int())
+    note = motiv[i].split(',')[1]
+    motiv[i] = duration + ',' + note
+
+gizmo_stdout(motiv)
