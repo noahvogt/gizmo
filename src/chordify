@@ -48,6 +48,6 @@ def diminished_triad(input_list):
         output_list.append(highes_note(i, 6))
     return output_list
 
-gizmo_stdout(augmented_triad(stdin_list))
+gizmo_stdout(major_triad(stdin_list))
 # write to standard output
 #gizmo_stdout(stdin_list)
