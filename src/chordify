@@ -1,0 +1,53 @@
+#!/usr/bin/env python3
+
+# program to chordify all notes
+
+# TODO: This program is not yet finished, this is a very early stage alpha
+# with all non-working parts removed
+
+# import needed gizmo funtions
+from gizmo_funtions import *
+from gizmo_transforming_functions import *
+
+# read from standard input
+stdin_list = stdin()
+
+# function that returns the major triads of a list
+def major_triad(input_list):
+    output_list = []
+    for i in stdin_list:
+        output_list.append(highes_note(i, 0))
+        output_list.append(highes_note(i, 4))
+        output_list.append(highes_note(i, 7))
+    return output_list
+
+# function that returns the minor triads of a list
+def minor_triad(input_list):
+    output_list = []
+    for i in stdin_list:
+        output_list.append(highes_note(i, 0))
+        output_list.append(highes_note(i, 3))
+        output_list.append(highes_note(i, 7))
+    return output_list
+
+# function that returns the augmented triads of a list
+def augmented_triad(input_list):
+    output_list = []
+    for i in stdin_list:
+        output_list.append(highes_note(i, 0))
+        output_list.append(highes_note(i, 4))
+        output_list.append(highes_note(i, 8))
+    return output_list
+
+# function that returns the diminished triads of a list
+def diminished_triad(input_list):
+    output_list = []
+    for i in stdin_list:
+        output_list.append(highes_note(i, 0))
+        output_list.append(highes_note(i, 3))
+        output_list.append(highes_note(i, 6))
+    return output_list
+
+gizmo_stdout(augmented_triad(stdin_list))
+# write to standard output
+#gizmo_stdout(stdin_list)
