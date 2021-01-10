@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from gizmo_transforming_functions import *
-from gizmo_funtions import gizmo_stdout, check_pitch_gizmo_notation
+from gizmo_funtions import gizmo_stdout, check_pitch_gizmo_notation, gizmo_write2file
 
 import sys
 import random
@@ -35,11 +35,24 @@ def half_note_duration(note):
 command line arguments to change result first length in quarter notes, second velocity and for the
 third it can be inputed a starting note"""
 
-# these are default values, TODO: write it in order to change them as commandline arguments 
+
+try:
+    write2file_str = str(sys.argv[1])
+    # raise error if not 'file' or stout
+    if write2file_str == 'file' or write2file_str == 'stout':
+        if write2file_str == 'file':
+            write2file = True
+        else:
+            write2file = False
+    else:
+        raise ValueError("wrong attribute")
+except (IndexError, ValueError):
+    # set fallback value
+    write2file = False
 
 # get command line argument length
 try:
-    motiv_length_in_quarter_notes = int(sys.argv[1])
+    motiv_length_in_quarter_notes = int(sys.argv[2])
     # raise error if number too small
     if motiv_length_in_quarter_notes < 1:
         raise ValueError("Number was too small (below 1)")
@@ -49,7 +62,7 @@ except (IndexError, ValueError):
 
 # get command line argument velocity
 try:
-    rythme_velocity = int(sys.argv[2])
+    rythme_velocity = int(sys.argv[3])
     # raise error if number too small
     if rythme_velocity < 0 or rythme_velocity > 3:
         raise ValueError("Number out of bounce (below 0 or over 2)")
@@ -57,14 +70,16 @@ except (IndexError, ValueError):
     # set fallback value if no or wrong arguments given
     rythme_velocity = random.randint(0,2)
 
+# get command line argument first note
 try:
-    first_note = str(sys.argv[3])
+    first_note = str(sys.argv[4])
     # raise error if not in correct gizmo notation
     if not check_pitch_gizmo_notation(first_note):
         raise ValueError("Not in correct gizmo notation")
 except (IndexError, ValueError):
     # randomness will be applied later, set first_note to String
     first_note = ''
+
 
 motiv = []
 
@@ -110,4 +125,7 @@ for i in range (1, len(motiv)):
     note = motiv[i].split(',')[1]
     motiv[i] = duration + ',' + note
 
-gizmo_stdout(motiv)
+if write2file:
+    gizmo_write2file(motiv, 'gen-motiv')
+else:
+    gizmo_stdout(motiv)

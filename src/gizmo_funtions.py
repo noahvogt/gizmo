@@ -63,3 +63,13 @@ def stdin():
     for line in sys.stdin:
         stdin_list.append(line.rstrip())
     return stdin_list
+
+# this funcion takes a text and return every char that occuers once in a list
+def diff_char(text):
+    char_list = []
+    for char in text:
+        if char in char_list:
+            continue
+        else:
+            char_list.append(char)
+    return char_list

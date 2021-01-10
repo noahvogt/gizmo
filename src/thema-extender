@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+
+from gizmo_transforming_functions import *
+from gizmo_funtions import *
+import random
+import sys
+import os
+
+# read from standard input
+motiv_list = stdin()
+
+# get commandline argument near_value
+try:
+    near_value = int(sys.argv[1])
+    # raise error if number too small
+    if near_value < 1:
+        raise ValueError("Number was too small (below 1)")
+except (IndexError, ValueError):
+    # set fallback value if no or wrong arguments given
+    near_value = 2
+
+# get commandline argument length
+try:
+    length = int(sys.argv[2])
+    # raise error if number too small
+    if length < 1:
+        raise ValueError("Number was too small (below 1)")
+except (IndexError, ValueError):
+    # set fallback value if no or wrong arguments given
+    length = 2
+
+gizmo_write2file(motiv_list, 'temp-file-1')
+os.system("python src/thema-gen < temp-file-1")
+# print('========== separation ============')
+for j in range (length):
+    new_motiv = motiv_list
+    for i in range(near_value):
+        # list of functions to apply to motiv
+        function_list = [
+            "verkleinerung(motiv_list)",
+            "krebs(motiv_list)",
+            "sequenz(motiv_list, 5)",
+            "mirror_pitch(motiv_list)",
+            "mirror_rythm(motiv_list)",
+            ]
+        if '0.25' in return_part(motiv_list, 0):
+            function_list.remove("verkleinerung(motiv_list)")
+        # print(motiv_list)
+        exec("motiv_list = %s" % (new_motiv))
+        # print(motiv_list)
+
+    gizmo_write2file(motiv_list, 'temp-file-2')
+    os.system("python src/thema-gen < temp-file-2")
+    # print('========== separation ============')
+
+gizmo_write2file(motiv_list, 'temp-file-1')
+os.system("python src/thema-gen < temp-file-1")

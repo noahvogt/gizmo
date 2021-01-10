@@ -1,0 +1,127 @@
+#!/usr/bin/env python3
+
+from gizmo_funtions import *
+import sys
+import os
+from os import path
+
+""" commandline argument"""
+
+# get commandline argument song_kind
+try:
+    song_kind = str(sys.argv[1])
+    # raise error if not letter only
+    if not song_kind.isalpha():
+        raise ValueError("Does not contain only letters")
+    else:
+        song_kind = song_kind.upper()
+except (IndexError, ValueError):
+    # set fallback value if no or wrong arguments given
+    song_kind = 'ABA'
+
+
+"""optional commandline arguments"""
+
+# get commandline argument motiv's which already are determined
+try:
+    already_given = str(sys.argv[2])
+    # raise exception if not letter only
+    if not already_given.isalpha():
+        raise ValueError("Does not contain only letters")
+    else:
+        already_given =  already_given.upper()
+except (IndexError, ValueError):
+    # set fallback value
+    already_given = ''
+
+already_given = diff_char(already_given)
+
+# check if given instances are stored correctly
+working_list = already_given[:]
+for i in already_given:
+    name = 'motiv-' + i
+    if not path.exists(name):
+        working_list.remove(i)
+already_given = working_list
+
+# format the remaining (motiv) argument in a list;
+# i) cut away first two arguments if they are given
+try:
+    motiv_commandline_argument = sys.argv[1:]
+    working_list = motiv_commandline_argument[:]
+    motiv_commandline_argument_list = []
+    s = 0
+    while motiv_commandline_argument[s].isalpha() or motiv_commandline_argument[s] == 'new':
+        if motiv_commandline_argument[s] == 'new':
+            motiv_commandline_argument_list = ['']
+        working_list = working_list[1:]
+        s += 1
+    motiv_commandline_argument = working_list[:]
+
+    # ii) built list
+    argument = ''
+    for i in motiv_commandline_argument:
+        if i == 'new':
+            motiv_commandline_argument_list.append(argument[:-1])
+            argument = ''
+        else:
+            argument += i + ' '
+    motiv_commandline_argument_list.append(argument)
+except (IndexError):
+    motiv_commandline_argument_list = []
+
+# iii) add empty arguments if not enough are given
+
+# get a list of motiv's that have to get computed
+diff_motiv_list = diff_char(song_kind)
+# substract already given motives
+for i in already_given:
+    diff_motiv_list.remove(i)
+length = len(diff_motiv_list) - len(motiv_commandline_argument_list)
+if length < 0:
+    motiv_commandline_argument_list = motiv_commandline_argument_list[:len(diff_motiv_list)]
+else:
+    for i in range(length):
+        motiv_commandline_argument_list.append('')
+
+""" functions """
+# stout thema with given motiv file name
+def thema_gen(motiv_file_name):
+    helper = "python src/thema-extender < " + motiv_file_name
+    os.system(helper)
+    return
+
+# save a file with a newly generated motiv under the given name
+def motiv_gen(motiv_commandline_argument, name):
+    helper_motiv = "python src/motiv_gen file " + motiv_commandline_argument
+    helper_rename = "mv gen-motiv " + name
+    os.system(helper_motiv)
+    os.system(helper_rename)
+    return
+
+"""this program should produce a little song without accompaniment yet"""
+
+
+# compute missing motives
+for i in range(len(diff_motiv_list)):
+    name = 'motiv-' + diff_motiv_list[i]
+    motiv_gen(motiv_commandline_argument_list[i], name)
+
+for i in song_kind:
+    name = 'motiv-' + i
+    thema_gen(name)
+    # print("========== separation ==========")
+
+"""
+os.system("python src/motiv_gen true")
+os.system("python src/thema-extender < gen-motiv")
+os.system("mv gen-motiv motiv-2") # rename file
+
+print("========== separation ==========")
+
+os.system("python src/motiv_gen true")
+os.system("python src/thema-extender < gen-motiv")
+
+os.system("python src/motiv_gen true")
+os.system("python src/thema-extender < motiv-2")
+"""
