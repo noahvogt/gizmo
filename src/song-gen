@@ -25,6 +25,8 @@ except (IndexError, ValueError):
 # get commandline argument motiv's which already are determined
 try:
     already_given = str(sys.argv[2])
+    # strip whitespaces
+    already_given = already_given.strip()
     # raise exception if not letter only
     if not already_given.isalpha():
         raise ValueError("Does not contain only letters")
@@ -41,6 +43,8 @@ working_list = already_given[:]
 for i in already_given:
     name = 'motiv-' + i
     if not path.exists(name):
+        working_list.remove(i)
+    elif not check_gizmo_notation(name):
         working_list.remove(i)
 already_given = working_list
 
@@ -100,7 +104,6 @@ def motiv_gen(motiv_commandline_argument, name):
     return
 
 """this program should produce a little song without accompaniment yet"""
-
 
 # compute missing motives
 for i in range(len(diff_motiv_list)):

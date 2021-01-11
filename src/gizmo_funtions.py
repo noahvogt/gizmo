@@ -73,3 +73,43 @@ def diff_char(text):
         else:
             char_list.append(char)
     return char_list
+
+# This function checks if the given tempi is in correct notation and
+# returns a boolean value
+def check_tempo_gizmo_notation(tempo):
+    if len(tempo) != 4:
+        return False
+    elif tempo[1:2] != '.':
+        return False
+    else:
+        tempo = tempo[:1] + tempo[2:]
+        if not tempo.isdigit():
+            return False
+        else:
+             return True
+
+# this function deletes whitespaces from gizmo notation and return a boolean value if 
+# it is okay or not.
+def check_gizmo_notation(name):
+    with open(name, "r") as file_opener:
+        content = file_opener.read()
+    content = content.replace(" ", "")
+    content = content.strip()
+    content_list = content.split('\n')
+    # remove all empty notes
+    working_list = content_list[:]
+    for i in content_list:
+        if i == '':
+            working_list.remove('')
+    content_list = working_list
+    gizmo_write2file(content_list, name)
+    try:
+        for line in content_list:
+            parts = line.split(',')
+            if not check_pitch_gizmo_notation(parts[1]):
+                return False
+            if not check_tempo_gizmo_notation(parts[0]):
+                return False
+        return True
+    except(IndexError):
+        return False
