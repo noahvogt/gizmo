@@ -55,3 +55,4 @@ for j in range (length):
 
 gizmo_write2file(motiv_list, 'temp-file-1')
 os.system("python src/thema-gen < temp-file-1")
+
