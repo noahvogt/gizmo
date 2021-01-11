@@ -111,17 +111,3 @@ for i in song_kind:
     name = 'motiv-' + i
     thema_gen(name)
     # print("========== separation ==========")
-
-"""
-os.system("python src/motiv_gen true")
-os.system("python src/thema-extender < gen-motiv")
-os.system("mv gen-motiv motiv-2") # rename file
-
-print("========== separation ==========")
-
-os.system("python src/motiv_gen true")
-os.system("python src/thema-extender < gen-motiv")
-
-os.system("python src/motiv_gen true")
-os.system("python src/thema-extender < motiv-2")
-"""

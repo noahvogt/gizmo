@@ -15,17 +15,69 @@ else:
 # import needed gizmo funtions
 from gizmo_funtions import return_part, stdin
 
+# import needed packages
+import sys
+
+# set default values
+chordify_step = 1
+
+# process commandline arguments
+args = sys.argv[1:]
+if len(args)>0:
+    if ("-ch" in args) or ("--choridy" in args):
+        try:
+            # get number
+            if "-ch" in args:
+                entered_number = int(args[args.index("-ch")+1])
+            else:
+                entered_number = int(args[args.index("--choridy")+1])
+            # exit if wrong form entered
+            if entered_number > 0:
+                chordify_step = entered_number
+            else:
+                raise ValueError("Error: Please give an integer bigger than 0.")
+        except (ValueError, IndexError):
+            print("Error: Please give an integer bigger than 0.")
+            exit()
+    if ("-h" in args) or ( "--help" in args):
+        # exit and display help message
+        print("Usage: final-converter [options] [< input file]\n\n\
+Options:\n\
+     -ch, --chordify [step]\tenter step for chordifying (default is 1)\n\
+     -h, --help\t\t\tprint this help message")
+        exit()
+
 # read from standard input
 stdin_list = stdin()
 
-# create stream
-stream1 = stream.Stream()
-for i in range(len(stdin_list)):
-    current_note = (return_part(stdin_list,1)[i])
-    current_duration = float((return_part(stdin_list,0)[i]))
-    exec("note%s=note.Note('%s')" % (str(i),current_note))
-    exec("note%s.duration.quarterLength = (%s)" % (str(i),current_duration))
-    exec("stream1.append(note%s)" % (str(i)))
+# create streams
+for i in range(chordify_step):
+    exec("stream%s = stream.Part(id='part0')" % (str(i)))
+    for j in range(len(stdin_list)):
+        if j % chordify_step == i:
+            current_note = (return_part(stdin_list, 1)[j])
+            current_duration = float((return_part(stdin_list, 0)[j]))
+            exec("note%s=note.Note('%s')" % (str(j), current_note))
+            exec("note%s.duration.quarterLength = (%s)" % (str(j), current_duration))
+            exec("stream%s.append(note%s)" % (str(i), str(j)))
 
-# open stream in predefinded environment
-stream1.show()
+# open concatenated main stream in predefinded environment
+if chordify_step != 1:
+    main_stream = stream.Score(id='mainScore')
+
+    for i in range(chordify_step):
+        exec("main_stream.insert(0, stream%s)" % (str(i)))
+
+    main_stream = main_stream.chordify()
+
+    # correct length of the chords
+    #print(int(len(stdin_list)/chordify_step))
+    j = 0
+    for i in main_stream.iter.notes:
+        j += 1
+        current_duration = float((return_part(stdin_list, 0)[j]))
+        exec("i.duration.quarterLength = (%s)" % (current_duration))
+
+    main_stream.show()
+else:
+    stream0.show()

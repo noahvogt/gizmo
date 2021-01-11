@@ -1,0 +1,18 @@
+#!/usr/bin/env python3
+
+# lowers the octave of all notes
+
+# import needed gizmo funtions
+from gizmo_funtions import gizmo_stdout, stdin
+from gizmo_transforming_functions import highes_note
+
+# read from standard input
+stdin_list = stdin()
+
+working_list = []
+
+for i in stdin_list:
+    working_list.append(highes_note(i, -12))
+
+# write to standard output
+gizmo_stdout(working_list)

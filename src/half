@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+
+# halfs the tempo of all notes
+
+# import needed gizmo funtions
+from gizmo_funtions import gizmo_stdout, stdin
+from gizmo_transforming_functions import verkleinerung
+
+# read from standard input
+stdin_list = stdin()
+
+# write to standard output
+gizmo_stdout(verkleinerung(stdin_list))

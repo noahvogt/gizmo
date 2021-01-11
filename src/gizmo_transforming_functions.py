@@ -46,7 +46,7 @@ def interval(note_1, note_2):
     if note_1[1][1:2] == '-': pitch += 1
     if note_2[1][1:2] == '#': pitch += 1
     return pitch
-    
+
 """ actual functions """
 
 # changes tempo

@@ -3,6 +3,10 @@
 
 *Note:* This program uses the [music21](https://github.com/cuthbertLab/music21) library.
 
+## Licensing
+
+Gizmo is a free (as in “free speech” and also as in “free beer”) Software. It is distributed under the GNU General Public License v3 (or any later version) - see the accompanying LICENSE file for more details.
+
 ## Dependencies
 First of all you need [python3](https://www.python.org/downloads/) including the standard librarys. Now install the only needed additional module using pip:
 
