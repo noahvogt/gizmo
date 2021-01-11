@@ -72,7 +72,7 @@ function_list = [
     "krebs(motiv_list)",
     "vergrösserung(motiv_list)",
     "motiv_list",
-    "sequenz(motiv_list, 5)",
+    "sequenz(motiv_list, {})".format(random.randint(3,12)),
     "mirror_pitch(motiv_list)",
     "mirror_rythm(motiv_list)"
     ]

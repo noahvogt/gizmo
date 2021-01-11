@@ -27,7 +27,7 @@ try:
         raise ValueError("Number was too small (below 1)")
 except (IndexError, ValueError):
     # set fallback value if no or wrong arguments given
-    length = 2
+    length = 1
 
 gizmo_write2file(motiv_list, 'temp-file-1')
 os.system("python src/thema-gen < temp-file-1")
@@ -39,7 +39,7 @@ for j in range (length):
         function_list = [
             "verkleinerung(motiv_list)",
             "krebs(motiv_list)",
-            "sequenz(motiv_list, 5)",
+            "sequenz(motiv_list, {})".format(random.randint(3,12)),
             "mirror_pitch(motiv_list)",
             "mirror_rythm(motiv_list)",
             ]
