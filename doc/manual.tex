@@ -1,0 +1,46 @@
+\documentclass{article}
+
+
+\title{Gizmo Manual}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section*{The Gizmo Notation}
+Gizmo uses a simple notation which only describes pitch and length. The notation is separated in two  parts by a comma  (``,''). The first part represents the note length as a three digit float while 1.00 represents a quarter note. The second part represents the pitch. It is described with a capital letter and a integer for the octave. If an accidental is needed it is written after the letter by a ``\# '' sign ($\sharp$) or a ``$-$'' sign ($\flat$).
+
+%here an example for the gizmo notation ======================
+
+\section{The Motive Generator}
+The motiv generator invents a new motive. To use it just execute the motiv-gen file. The command can take some arguments:
+$$\rm{motive-gen} <stout\, ||\, file>\,<length>\,<velocity>\,<firstNote>$$
+
+\begin{itemize}
+
+\item The first argument decides if the output is juste on the console or if it  writes a new file \footnote {The file is always named ``gen-motiv'' and will overwrite itself if it already exists} containing the music in gizmo notation.
+
+\item The second argument determines the overall length of the motive mesured in quarter notes. Only positiv intergers are allowd.
+
+\item The third argument is 0, 1 or 2 and is a way to manipulate the velocity. 0 will produce a slow motive while 2 will produce a fast motive.
+
+\item With the last argument it is possible to specifiy the first note which will be used in the motive by using the gizmo notation.
+
+\end{itemize}
+
+Here an example with all arguments used:
+\begin{center}
+ motiv-gen file 4 2 D\# 4
+\end{center}
+ It is necessary to use all previous arguments of the choosen argumen. However, it is possible to input a ``wrong'' argument (like -1) to default any argument. So for example:
+ \begin{center}
+ motiv-gen -1 4 -1 F-4
+ \end{center}
+ would yield a motiv which begins with f-flat and has length of a whole note.
+
+\section{Theme Generator}
+%================================
+\section{Theme }
+
+
+
+\end{document}
