@@ -2,7 +2,6 @@
 
 # music21 settings
 from music21 import *
-from matplotlib import *
 import sys
 if sys.platform == 'linux':
     environment.set('musicxmlPath', '/usr/bin/musescore')
