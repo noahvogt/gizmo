@@ -94,8 +94,10 @@ Now the same example in *sheet music*:
 ### Filetype Conversions
 
 The beauty about the simplicity of the gizmo notation is that it can be easily converted from and to established open standards such as MusicXML.
+
+Here a little *visualisation* on how gizmo handles filetype conversions:
  
-![a visualisation on how gizmo handles filetype conversions](media/filetype-conversions.png)
+![](media/filetype-conversions.png)
 
 ### Basic Usage Examples
 
